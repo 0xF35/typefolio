@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typefolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-black flex flex-col justify-center items-center gap-4">
+    <img class="w-4/5 sm:w-90 rounded mt-24" id="image">
+    <button class="rounded py-2 text-sm cursor-pointer w-4/5 sm:w-90 bg-white" onclick="download()">Download This Font</button>
+</body>
+<script>
+    onload = ()=>{
+        let params = new URLSearchParams(document.location.search);
+        let font = params.get("font");
+        document.getElementById('image').src = `https://0xf35.github.io/typefolio/images/${font}.jpg`
+    }
+    function download(){
+        let params = new URLSearchParams(document.location.search);
+        let font = params.get("font");
+        window.location.replace(`https://0xf35.github.io/typefolio/images/${font}.jpg`)
+    }
+
+</script>
+</html>
