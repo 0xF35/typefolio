@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typefolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-black flex flex-col justify-center items-center gap-4">
-    <img class="w-4/5 sm:w-90 rounded mt-24" id="image">
-    <button class="rounded py-2 text-sm cursor-pointer w-4/5 sm:w-90 bg-white" onclick="download()">Download This Font</button>
+<body>
 </body>
 <script>
-    onload = ()=>{
-        let params = new URLSearchParams(document.location.search);
-        let font = params.get("font");
-        document.getElementById('image').src = `https://0xf35.github.io/typefolio/images/${font}.jpg`
-    }
-    function download(){
-        let params = new URLSearchParams(document.location.search);
-        let font = params.get("font");
-        window.location.replace(`https://0xf35.github.io/typefolio/images/${font}.jpg`)
+    function isInt(value) {
+        return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
     }
 
+    window.onload = async function redirect() {
+        let params = new URLSearchParams(document.location.search);
+        let font = params.get("font");
+        if(font == null || !isInt(font)){
+            window.location.replace('https://play.google.com/store/apps/details?id=com.bytewizz.fontfusion')
+        }
+        var url = await fetch(`https://0xf35.github.io/typefolio/api/${font}`)
+        var data = await url.json()
+        var redirect_url = data['url']
+        window.location.replace(redirect_url)
+    }
 </script>
 </html>
